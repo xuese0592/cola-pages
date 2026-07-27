@@ -592,130 +592,130 @@
       ],
       "supplierDB": [
         {
-          "name": "?????????",
-          "contact": "???",
+          "name": "广东万尔芯智能科技",
+          "contact": "谢风云",
           "phone": "0769-3886161",
-          "addr": "????????11?4?",
-          "direction": "?????/???/???",
-          "projects": "??/???????",
-          "note": "26?/? Q8L-T??? ??12??"
+          "addr": "东莞大岭山湖畔路11号4栋",
+          "direction": "自动码垛线/捆扎机/封箱机",
+          "projects": "成东/信泰自动码垛线",
+          "note": "26万/套 Q8L-T捆扎机 质保12个月"
         },
         {
-          "name": "??",
-          "contact": "???",
-          "phone": "???",
-          "addr": "??",
-          "direction": "????????????",
-          "projects": "??444.7? ??368?",
-          "note": "????? 4?????"
+          "name": "天富",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "杭州",
+          "direction": "染料助剂盐碱自动配送系统",
+          "projects": "总价444.7万 议后368万",
+          "note": "合同审阅中 4条必改条款"
         },
         {
-          "name": "??????",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "????/????",
-          "projects": "???????????",
-          "note": "????"
+          "name": "浙江永创机械",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "自动码垛/包装设备",
+          "projects": "纺丝厂纸箱自动码垛方案",
+          "note": "报价阶段"
         },
         {
-          "name": "??",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "???/AGV",
-          "projects": "??4#???",
-          "note": "????????"
+          "name": "诺力",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "提升机/AGV",
+          "projects": "经编4#提升机",
+          "note": "合同争议条款谈判"
         },
         {
-          "name": "????",
-          "contact": "??(??)",
+          "name": "崧智智能",
+          "contact": "丁昊(法人)",
           "phone": "0512-62621809",
-          "addr": "???????????88?D1-101",
-          "direction": "????/????",
-          "projects": "???",
+          "addr": "苏州工业园区金鸡湖大道88号D1-101",
+          "direction": "运动控制/智能装备",
+          "projects": "待联系",
           "note": "sales@origi-tech.com"
         },
         {
-          "name": "????",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "???????",
+          "name": "玺发科技",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "视频测量显微镜",
           "projects": "SMYT-100S",
-          "note": "13.3?? 1/1.8\"CMOS 4K@30fps"
+          "note": "13.3寸屏 1/1.8\"CMOS 4K@30fps"
         },
         {
-          "name": "TV-04???",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "???????",
+          "name": "TV-04供应商",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "视频测量显微镜",
           "projects": "TV-04",
-          "note": "11.6???? 56?LED???"
+          "note": "11.6寸可拆屏 56颗LED环形灯"
         },
         {
-          "name": "???",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "?????",
-          "projects": "??????",
-          "note": "?????"
+          "name": "汉特云",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "送样机器人",
+          "projects": "检测中心送样",
+          "note": "与普渡对比"
         },
         {
-          "name": "??",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "?????",
-          "projects": "??????",
-          "note": "??????"
+          "name": "普渡",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "送样机器人",
+          "projects": "检测中心送样",
+          "note": "与汉特云对比"
         },
         {
-          "name": "????",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "AGV????",
-          "projects": "??4#????AGV",
-          "note": "????AGV"
+          "name": "信亿机械",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "AGV生产制造",
+          "projects": "经编4#盘头搬运AGV",
+          "note": "指导生产AGV"
         },
         {
-          "name": "????",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "AI??/????",
-          "projects": "AI???????",
-          "note": "?????"
+          "name": "海康威视",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "AI验布/机器视觉",
+          "projects": "AI验布机选型参考",
+          "note": "性价比路线"
         },
         {
-          "name": "????",
-          "contact": "???",
-          "phone": "???",
-          "addr": "??",
-          "direction": "AI???",
-          "projects": "????",
-          "note": "TOP1 ????95%"
+          "name": "迈沐智能",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "浙江",
+          "direction": "AI验布机",
+          "projects": "行业对标",
+          "note": "TOP1 检出率≥95%"
         },
         {
-          "name": "????",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "?????/??AGV",
-          "projects": "??????",
-          "note": "??130?"
+          "name": "海柔创新",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "料箱机器人/鞋服AGV",
+          "projects": "石狮立库对标",
+          "note": "单仓130台"
         },
         {
-          "name": "????",
-          "contact": "???",
-          "phone": "???",
-          "addr": "???",
-          "direction": "???/AI??",
-          "projects": "???????",
-          "note": "???????"
+          "name": "福建联通",
+          "contact": "待补充",
+          "phone": "待补充",
+          "addr": "待补充",
+          "direction": "云计算/AI算力",
+          "projects": "联合实验室合作",
+          "note": "合同待法务反馈"
         }
       ]
     },
