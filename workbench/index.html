@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>六域工作台</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>?????</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f2f5;color:#1a1a2e;height:100vh;display:flex;flex-direction:column}
 header{background:#fff;border-bottom:1px solid #e8e8e8;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;flex-shrink:0;z-index:10}
-.logo{font-size:18px;font-weight:700;color:#1a1a2e}
-.logo span{color:#4f46e5;margin-right:6px}
+.logo{font-size:18px;font-weight:700}.logo span{color:#f59e0b;margin-right:6px}
 .persona-bar{display:flex;gap:2px}
 .persona-btn{padding:8px 16px;border:none;background:transparent;border-radius:8px;cursor:pointer;font-size:13px;color:#666;transition:all .2s;white-space:nowrap}
 .persona-btn:hover{background:#f5f3ff;color:#4f46e5}
 .persona-btn.active{background:#4f46e5;color:#fff}
-.persona-btn .icon{font-size:16px}
 .clock{font-size:12px;color:#999}
 main{display:flex;flex:1;overflow:hidden}
-.sidebar{width:180px;background:#fff;border-right:1px solid #e8e8e8;padding:16px 12px;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
-.sidebar-header{font-size:11px;text-transform:uppercase;color:#999;letter-spacing:1px;padding:4px 8px;margin-bottom:4px}
+.sidebar{width:180px;background:#fff;border-right:1px solid #e8e8e8;padding:16px 12px;display:flex;flex-direction:column;gap:4px;flex-shrink:0;overflow-y:auto}
+.sidebar-header{font-size:11px;color:#999;letter-spacing:1px;padding:4px 8px;margin-bottom:4px}
 .kanban-btn{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-size:13px;color:#444;text-align:left;transition:all .15s}
 .kanban-btn:hover{background:#f5f3ff}
 .kanban-btn.active{background:#ede9fe;color:#4f46e5;font-weight:600}
@@ -26,108 +23,145 @@ main{display:flex;flex:1;overflow:hidden}
 .kanban-btn.active .count{background:#4f46e5;color:#fff}
 .sidebar-footer{font-size:10px;color:#bbb;padding:8px;margin-top:auto;border-top:1px solid #f0f0f0;padding-top:12px}
 .content{flex:1;overflow-y:auto;padding:20px}
-.search-bar{display:flex;gap:8px;margin-bottom:16px;align-items:center}
-.search-input{flex:1;max-width:320px;padding:8px 14px;border:1px solid #d9d9d9;border-radius:8px;font-size:13px;outline:none;transition:border .2s}
+.search-bar{display:flex;gap:8px;margin-bottom:16px;align-items:center;flex-wrap:wrap}
+.search-input{flex:1;max-width:320px;padding:8px 14px;border:1px solid #d9d9d9;border-radius:8px;font-size:13px;outline:none}
 .search-input:focus{border-color:#4f46e5}
 .filter-tags{display:flex;gap:6px;flex-wrap:wrap}
-.filter-tag{padding:4px 12px;border:1px solid #d9d9d9;border-radius:14px;font-size:12px;cursor:pointer;background:#fff;color:#666;transition:all .15s}
+.filter-tag{padding:4px 12px;border:1px solid #d9d9d9;border-radius:14px;font-size:12px;cursor:pointer;background:#fff;color:#666}
 .filter-tag:hover,.filter-tag.active{background:#4f46e5;color:#fff;border-color:#4f46e5}
 .summary{font-size:12px;color:#999;margin-bottom:12px}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
 .card{background:#fff;border-radius:10px;padding:16px;border:1px solid #f0f0f0;transition:all .2s;cursor:pointer}
 .card:hover{border-color:#c4b5fd;box-shadow:0 2px 8px rgba(79,70,229,.08)}
 .card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.card-title{font-size:14px;font-weight:600;color:#1a1a2e;line-height:1.4;flex:1}
+.card-title{font-size:14px;font-weight:600;line-height:1.4;flex:1}
 .card-badges{display:flex;gap:4px;flex-shrink:0;margin-left:8px}
 .badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500}
 .badge-tag{background:#f5f3ff;color:#6d5dfc}
 .badge-status{background:#e6f7ff;color:#1890ff}
-.badge-warn{background:#fff7e6;color:#d46b08}
-.badge-success{background:#f6ffed;color:#52c41a}
 .card-meta{font-size:12px;color:#999;margin-top:4px;display:flex;gap:12px}
 .card-desc{font-size:12px;color:#666;margin-top:8px;line-height:1.5}
 .empty-state{text-align:center;padding:60px 20px;color:#bbb;font-size:14px}
+
+/* Supplier table */
+.supplier-section{margin-top:24px;border-top:1px solid #e8e8e8;padding-top:16px}
+.supplier-section h3{font-size:15px;font-weight:600;margin-bottom:12px;color:#1a1a2e}
+.supplier-table{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border-radius:8px;overflow:hidden}
+.supplier-table th{background:#f8f9fb;color:#555;font-weight:600;padding:10px 12px;text-align:left;border-bottom:2px solid #e8e8e8;white-space:nowrap}
+.supplier-table td{padding:9px 12px;border-bottom:1px solid #f0f0f0;color:#444}
+.supplier-table tr:hover td{background:#fafbff}
+.supplier-table .empty-cell{color:#ccc;font-style:italic}
+.export-btn{float:right;padding:6px 16px;background:#4f46e5;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;margin-bottom:8px}
+.export-btn:hover{background:#4338ca}
 </style>
 </head>
 <body>
-
 <header>
- <div class="logo"><span>⚡</span>六域工作台</div>
+ <div class="logo"><span>?</span>?????</div>
  <div class="persona-bar" id="personaBar"></div>
  <div class="clock" id="clock"></div>
 </header>
-
 <main>
  <nav class="sidebar" id="sidebar">
-  <div class="sidebar-header">看板列</div>
+  <div class="sidebar-header">???</div>
   <div id="kanbanList"></div>
   <div class="sidebar-footer" id="sidebarFooter"></div>
  </nav>
  <section class="content" id="content"></section>
 </main>
-
 <script>
-const DATA={"personas":[{"id":"project","name":"项目助手","char":"沙耶","icon":"📋","kanbans":["规划设计","项目实施","运维"],"items":[{"id":"p1","title":"金井厂房智能制造规划","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"智能制造规划，涉及生产工艺的自动化配套和自动化物流"},{"id":"p2","title":"印尼工厂规划","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"新工厂智能制造规划"},{"id":"p3","title":"服装自动化规划","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"智能制造规划，涉及生产工艺的自动化配套和自动化物流"},{"id":"p4","title":"经编胚布仓AGV规划","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"胚布仓AGV需求规划"},{"id":"p5","title":"飞织仓自动码垛","kanban":"规划设计","tags":"方案","lead":"林乐平","date":"2025-02","desc":"成东/信泰自动码垛，万尔芯26万/套，2月签约"},{"id":"p6","title":"水冷单丝称重分类线","kanban":"规划设计","tags":"方案定稿","lead":"赵鹏","date":"2026-07","desc":"2000梭/h、三配方四出口对接包装线，待发询价"},{"id":"p7","title":"源选样品数据采集箱","kanban":"规划设计","tags":"预算完成","lead":"叶雨磊","date":"2026-07","desc":"48项物料，¥3,774-6,668"},{"id":"p8","title":"质量中心耐磨自动化检测","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"工业视觉对摩擦后样品表面检测"},{"id":"p9","title":"质量中心样品自动运输","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"实验室内部+外部AGV运输设计"},{"id":"p10","title":"紧筒机色差检测","kanban":"规划设计","tags":"调研","lead":"李俊仪/翁宏","date":"2026","desc":"需求调研、可行性评估"},{"id":"p11","title":"富联鞋样AI综合分析系统","kanban":"规划设计","tags":"方案","lead":"王志龙","date":"2026","desc":"方案阶段"},{"id":"p12","title":"经编4#提升机","kanban":"项目实施","tags":"调试","lead":"王志龙","date":"2026","desc":"安装调试中"},{"id":"p13","title":"4#带轴盘头AGV运输","kanban":"项目实施","tags":"调试","lead":"王志龙/刘毅杰","date":"2026","desc":"电气接线+调试+地图制作"},{"id":"p14","title":"经编整经跨车间运输","kanban":"项目实施","tags":"实施","lead":"王志龙","date":"2026","desc":"实施中"},{"id":"p15","title":"经编4#盘头搬运AGV","kanban":"项目实施","tags":"出图","lead":"李俊仪/翁宏","date":"2026","desc":"输出模型、图纸和BOM，指导信亿机械生产"},{"id":"p16","title":"经编5#胚布搬运AGV","kanban":"项目实施","tags":"方案","lead":"李俊仪/翁宏","date":"2026","desc":"需求调研及方案输出"},{"id":"p17","title":"经编仓库+胚布仓库AGV自动化","kanban":"项目实施","tags":"调试","lead":"李泽波","date":"2026","desc":"叉车AGV跨车间+盘头+仓库+胚布，调试运维中"},{"id":"p18","title":"AGV人型检测","kanban":"项目实施","tags":"测试","lead":"刘毅杰","date":"2026","desc":"经编1#厂2F叉车AGV加装人型检测摄像头"},{"id":"p19","title":"飞织数采","kanban":"项目实施","tags":"运行","lead":"赵鹏/张钐钐","date":"2026","desc":"多品牌设备协议对接、看板开发，已上线运行"},{"id":"p20","title":"飞织自动小包装线","kanban":"项目实施","tags":"运行","lead":"赵鹏/叶雨磊","date":"2026","desc":"自动线占比66.2%，7/10峰值64,756双，MES对接优化中"},{"id":"p21","title":"梭织数采","kanban":"项目实施","tags":"实施","lead":"赵鹏/张钐钐/李泽波","date":"2026","desc":"设备联网方案、采集点位规划、全厂数据采集"},{"id":"p22","title":"梭织CAD软件","kanban":"项目实施","tags":"开发","lead":"张钐钐","date":"2026","desc":"提升工艺设计效率、高度定制自有功能"},{"id":"p23","title":"水冷单丝数采","kanban":"项目实施","tags":"部署","lead":"赵鹏/张钐钐/李泽波","date":"2026","desc":"15条产线、多品牌适配、本地部署、源码交付"},{"id":"p24","title":"色牢度检测设备研发","kanban":"项目实施","tags":"交付","lead":"李俊仪/刘毅杰/翁宏","date":"2026","desc":"设备研发及制造、电气部分、程序逻辑编写、已部署"},{"id":"p25","title":"摩擦色牢度检测仪","kanban":"项目实施","tags":"实施","lead":"赵鹏","date":"2026","desc":"制定项目计划、按计划完成交付"},{"id":"p26","title":"AI编织非标设备","kanban":"项目实施","tags":"研发","lead":"赵鹏/李俊仪","date":"2026","desc":"对接非标设备需求及实现评估"},{"id":"p27","title":"绕纱非标设备","kanban":"项目实施","tags":"研发","lead":"赵鹏/李俊仪","date":"2026","desc":"对接非标设备需求及实现评估"},{"id":"p28","title":"绕丝喷漆","kanban":"项目实施","tags":"对接","lead":"刘毅杰","date":"2026","desc":"电气部分需求对接"},{"id":"p29","title":"源选鞋面采样","kanban":"项目实施","tags":"研发","lead":"李俊仪/翁宏","date":"2026","desc":"协助出图和BOM"},{"id":"p30","title":"立体缠绕非标设备","kanban":"项目实施","tags":"评估","lead":"李俊仪","date":"2026","desc":"对接需求、评估可行性"},{"id":"p31","title":"点对点AGV叉车","kanban":"运维","tags":"运维","lead":"刘毅杰","date":"2026","desc":"设备运维事项及新地图绘制"},{"id":"p32","title":"富联叉车AGV运输","kanban":"运维","tags":"运维","lead":"李泽波","date":"2026","desc":"日常运维"},{"id":"p33","title":"经编CAD软件","kanban":"运维","tags":"运维","lead":"张钐钐","date":"2026","desc":"持续开发+运维"},{"id":"p34","title":"AGV调度系统（经编+富联）","kanban":"运维","tags":"运维","lead":"张钐钐","date":"2026","desc":"工厂自动化、持续开发"},{"id":"p35","title":"经编版型核对（视觉）","kanban":"项目实施","tags":"规划","lead":"林乐平","date":"2026","desc":"工业视觉对样品版型大小、色差检测"}]},{"id":"dept","name":"部门助理","char":"朱菜","icon":"📊","kanbans":["周报月报","经营汇报","制度文件","SOP文档","部门数据"],"items":[{"id":"d1","title":"飞织自动小包装线项目周报","kanban":"周报月报","tags":"周报","lead":"赵鹏","date":"2026-07-13","desc":"周期7/6-7/12，自动线383,994双/23,225包，占比66.2%"},{"id":"d2","title":"飞织周报模板体系","kanban":"周报月报","tags":"模板","lead":"赵鹏","date":"2026-07-10","desc":"generate.js + content-template.json + README.md 三文件"},{"id":"d3","title":"滴滴及私车公用月度费用统计","kanban":"周报月报","tags":"月度","lead":"赵鹏","date":"2026-07-06","desc":"数字化中心滴滴及私车公用费用统计.xlsx，每月5号cron自动更新"},{"id":"d4","title":"半年度经营分析报告","kanban":"经营汇报","tags":"半年度","lead":"赵鹏","date":"2026-07-26","desc":"模板+供应链案例已过，大纲梳理中"},{"id":"d5","title":"联合公告修改建议书","kanban":"制度文件","tags":"制度","lead":"赵鹏","date":"2026-07-20","desc":"万物V2 vs AI管理中心V1.0，6条必改项，同事主导推进中"},{"id":"d6","title":"天富合同必改条款修改建议书","kanban":"制度文件","tags":"合同","lead":"赵鹏","date":"2026-07-10","desc":"4条必改条款+质保期+试运行时间，7/11审阅天富修订版"},{"id":"d7","title":"飞织自动包装生产作业指导书","kanban":"SOP文档","tags":"SOP","lead":"赵鹏","date":"2026-06-11","desc":"面向一线工人，文字简单直白"},{"id":"d8","title":"飞织保养标准作业指导书","kanban":"SOP文档","tags":"SOP","lead":"赵鹏","date":"2026-06-13","desc":"设备保养规范"},{"id":"d9","title":"水冷单丝称重分类线需求单","kanban":"SOP文档","tags":"需求","lead":"赵鹏","date":"2026-07-16","desc":"2000梭/h、三配方四出口、对接包装线"},{"id":"d10","title":"AI验布机选型与测试验证PPT","kanban":"经营汇报","tags":"汇报","lead":"赵鹏","date":"2026-07-10","desc":"v2定稿"},{"id":"d11","title":"部门工作分析汇总表","kanban":"部门数据","tags":"数据","lead":"赵鹏","date":"2026-07-20","desc":"9人全口径，按规划设计/项目实施/运维三分类"},{"id":"d12","title":"岗位工作分析调查问卷","kanban":"部门数据","tags":"问卷","lead":"赵鹏","date":"2026-06-16","desc":"8人问卷数据核查+汇总，赵鹏129%负荷、张钐钐156%"},{"id":"d13","title":"数字化项目责任归属分析","kanban":"部门数据","tags":"分析","lead":"赵鹏","date":"2026-06-18","desc":"项目责任归属与实施路径"}]},{"id":"supplier","name":"供应商管理","char":"Saber","icon":"⚔️","kanbans":["询价中","报价已收","合同签订","已交付"],"items":[{"id":"s1","title":"广东万尔芯 — 自动码垛线","kanban":"合同签订","tags":"码垛","lead":"赵鹏","date":"2025-02-14","desc":"成东/信泰各26万，Q8L-T捆扎机×2+WEX码垛机器人，质保12个月"},{"id":"s2","title":"天富 — 染料助剂自动配送系统","kanban":"报价已收","tags":"配送","lead":"赵鹏","date":"2026-07-07","desc":"总价4,447,742，议后368万(17.3%)，合同审阅中"},{"id":"s3","title":"视频测量显微镜 — 玺发SMYT-100S","kanban":"询价中","tags":"检测","lead":"赵鹏","date":"2026-07-16","desc":"13.3寸屏、1/1.8\"CMOS、4K@30fps、800万像素，缺价格"},{"id":"s4","title":"视频测量显微镜 — TV-04","kanban":"询价中","tags":"检测","lead":"赵鹏","date":"2026-07-16","desc":"11.6寸可拆屏、56颗LED环形灯+底光源底座，缺价格"},{"id":"s5","title":"崧智智能","kanban":"询价中","tags":"控制","lead":"赵鹏","date":"2026-07-16","desc":"www.origi-tech.com，苏州0512-62621809，sales@origi-tech.com"},{"id":"s6","title":"诺力 — 提升机","kanban":"合同签订","tags":"提升机","lead":"王志龙","date":"2026","desc":"第8.6条第(1)点争议谈判，方案：不合格分两档"},{"id":"s7","title":"送样机器人 — 汉特云 vs 普渡","kanban":"报价已收","tags":"机器人","lead":"赵鹏","date":"2026-06-25","desc":"供应商报价对比分析已完成"},{"id":"s8","title":"SZ08A-00数据采集箱物料","kanban":"报价已收","tags":"数采","lead":"赵鹏","date":"2026-07-14","desc":"48项分9类，京东+淘宝+供应商三渠道，¥3,774-6,668"},{"id":"s9","title":"信亿机械 — AGV生产","kanban":"合同签订","tags":"AGV","lead":"李俊仪","date":"2026","desc":"指导信亿机械生产AGV"}]},{"id":"auto","name":"自动收集管家","char":"山田","icon":"🤖","kanbans":["行业周报","政策动态","技术前沿","竞品动向"],"items":[{"id":"a1","title":"信泰石狮2.3亿智能工厂落地","kanban":"行业周报","tags":"标杆","date":"2026-07-22","desc":"MES+AGV+立库全链路打通，入选数字三品典型案例、省级先进级智能工厂"},{"id":"a2","title":"信泰×华为AI创研云底座上线","kanban":"行业周报","tags":"AI","date":"2026-07-22","desc":"CloudPond昇腾云，设计打样效率↑300%，研发周期从数月→几天"},{"id":"a3","title":"联兴发5G+AI验布：0.1mm瑕疵检测","kanban":"行业周报","tags":"AI验布","date":"2026-07-22","desc":"30+种瑕疵，效率为人工3倍(200匹/天)，入选5G工厂名录"},{"id":"a4","title":"福建省AI+制造三年行动计划(2026-2028)","kanban":"政策动态","tags":"政策","date":"2026-07-01","desc":"八部门联合印发，福州/泉州/莆田为重点，目标20个垂直模型+100个场景"},{"id":"a5","title":"泉州入选首批国家新型工业化示范区","kanban":"政策动态","tags":"政策","date":"2026-07-22","desc":"信泰石狮列为制鞋链重点项目，MES+AGV经验向产业链输出"},{"id":"a6","title":"厦门2026智能工厂梯度培育申报","kanban":"政策动态","tags":"申报","date":"2026-07-23","desc":"CMMM自评估为申报前提"},{"id":"a7","title":"迈沐AI验布机TOP1 + 10年整机质保","kanban":"技术前沿","tags":"AI验布","date":"2026-07","desc":"自研沐光大模型+多谱段成像，检出率≥95%，17项发明专利"},{"id":"a8","title":"迁移学习破局AI验布数据饥渴","kanban":"技术前沿","tags":"AI验布","date":"2026-07","desc":"数据需求仅传统1%-5%，70天交付，帝人/中国巨石/晓星已采用"},{"id":"a9","title":"海柔创新鞋服AGV：单仓130台","kanban":"竞品动向","tags":"AGV","date":"2026-07","desc":"鞋服累计30+项目，欣贺34台箱式机器人，拣选准确率99.99%+"},{"id":"a10","title":"恒力化纤AI视觉质量管控智能体","kanban":"技术前沿","tags":"AI质检","date":"2026-07-17","desc":"工信部AI典型案例，丝锭外观缺陷秒级检测，数采+AI+自动化闭环"},{"id":"a11","title":"工信部AI典型案例：纺织6项入选","kanban":"行业周报","tags":"AI","date":"2026-07-14","desc":"恒力/汉塔/中译语通/波司登/南京玻纤院/酷特智能"},{"id":"a12","title":"WAIC 2026：工业智能体站C位","kanban":"技术前沿","tags":"AI","date":"2026-07-20","desc":"中国移动天工发布，智元A3 Ultra量产1.5万台，优必选日产50台"}]},{"id":"library","name":"图书库","char":"伊莉雅","icon":"📚","kanbans":["工作模板","参考资料","方法论","快速查询"],"items":[{"id":"l1","title":"需求规格说明书模板","kanban":"工作模板","tags":"模板","desc":"业务需求规格说明书+产品PRD+需求基线确认书"},{"id":"l2","title":"项目周报模板（飞织线）","kanban":"工作模板","tags":"模板","desc":"generate.js + content-template.json，可复用"},{"id":"l3","title":"合同风险审阅Checklist","kanban":"工作模板","tags":"模板","desc":"基于天富/联通/诺力合同审阅经验提炼"},{"id":"l4","title":"供应商报价对比分析模板","kanban":"工作模板","tags":"模板","desc":"汉特云vs普渡/玺发vs TV-04两轮经验"},{"id":"l5","title":"SOP白话写作方法","kanban":"方法论","tags":"方法论","desc":"面向一线工人：做什么→看哪里→出问题怎么办"},{"id":"l6","title":"供应商调研方法论","kanban":"方法论","tags":"方法论","desc":"先确认需求类型再展开，京东标准件+供应商非标件"},{"id":"l7","title":"工业品采购渠道分类","kanban":"快速查询","tags":"采购","desc":"京东自营→标准件/电气件；淘宝→辅助物料；供应商→PLC/传感器/定制件"},{"id":"l8","title":"天富合同必改条款速查","kanban":"参考资料","tags":"合同","desc":"4条：钱货两空/日1%违约金/无限签字权+30天验收/管辖佛山"},{"id":"l9","title":"C盘/D盘清理经验","kanban":"快速查询","tags":"IT","desc":"WPS Cloud Files、TencentMeeting、微信缓存"},{"id":"l10","title":"论文通知拆解速查","kanban":"快速查询","tags":"论文","desc":"学位vs非学位：查重25%vs40%、字数8000vs6000、成绩70vs60"},{"id":"l11","title":"220V弱电问答","kanban":"快速查询","tags":"电气","desc":"220V是强电，弱电一般≤36V"},{"id":"l12","title":"天富中控 vs MES 区别","kanban":"参考资料","tags":"MES","desc":"中控=设备操作台，MES=工厂生产大脑"},{"id":"l13","title":"部门9人岗位职责表","kanban":"参考资料","tags":"部门","desc":"智能制造部门工作量分析.xlsx，按规划设计/实施/运维三分类"}]}]};
-(()=>{const data=DATA;
- const state={personaIdx:0,kanban:"all",search:"",filterTags:new Set()};
- let items=[],kanbans=[];
+const DATA={"personas":[{"id":"project","name":"项目助手","char":"沙耶","icon":"📋","kanbans":["规划设计","项目实施","运维"],"items":[{"id":"p1","title":"金井厂房智能制造规划","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"智能制造规划，涉及生产工艺的自动化配套和自动化物流"},{"id":"p2","title":"印尼工厂规划","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"新工厂智能制造规划"},{"id":"p3","title":"服装自动化规划","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"智能制造规划，涉及生产工艺的自动化配套和自动化物流"},{"id":"p4","title":"经编胚布仓AGV规划","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"胚布仓AGV需求规划"},{"id":"p5","title":"飞织仓自动码垛","kanban":"规划设计","tags":"方案","lead":"林乐平","date":"2025-02","desc":"成东/信泰自动码垛，万尔芯26万/套，2月签约"},{"id":"p6","title":"水冷单丝称重分类线","kanban":"规划设计","tags":"方案定稿","lead":"赵鹏","date":"2026-07","desc":"2000梭/h、三配方四出口对接包装线，待发询价"},{"id":"p7","title":"源选样品数据采集箱","kanban":"规划设计","tags":"预算完成","lead":"叶雨磊","date":"2026-07","desc":"48项物料，¥3,774-6,668"},{"id":"p8","title":"质量中心耐磨自动化检测","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"工业视觉对摩擦后样品表面检测"},{"id":"p9","title":"质量中心样品自动运输","kanban":"规划设计","tags":"规划","lead":"林乐平","date":"2026","desc":"实验室内部+外部AGV运输设计"},{"id":"p10","title":"紧筒机色差检测","kanban":"规划设计","tags":"调研","lead":"李俊仪/翁宏","date":"2026","desc":"需求调研、可行性评估"},{"id":"p11","title":"富联鞋样AI综合分析系统","kanban":"规划设计","tags":"方案","lead":"王志龙","date":"2026","desc":"方案阶段"},{"id":"p12","title":"经编4#提升机","kanban":"项目实施","tags":"调试","lead":"王志龙","date":"2026","desc":"安装调试中"},{"id":"p13","title":"4#带轴盘头AGV运输","kanban":"项目实施","tags":"调试","lead":"王志龙/刘毅杰","date":"2026","desc":"电气接线+调试+地图制作"},{"id":"p14","title":"经编整经跨车间运输","kanban":"项目实施","tags":"实施","lead":"王志龙","date":"2026","desc":"实施中"},{"id":"p15","title":"经编4#盘头搬运AGV","kanban":"项目实施","tags":"出图","lead":"李俊仪/翁宏","date":"2026","desc":"输出模型、图纸和BOM，指导信亿机械生产"},{"id":"p16","title":"经编5#胚布搬运AGV","kanban":"项目实施","tags":"方案","lead":"李俊仪/翁宏","date":"2026","desc":"需求调研及方案输出"},{"id":"p17","title":"经编仓库+胚布仓库AGV自动化","kanban":"项目实施","tags":"调试","lead":"李泽波","date":"2026","desc":"叉车AGV跨车间+盘头+仓库+胚布，调试运维中"},{"id":"p18","title":"AGV人型检测","kanban":"项目实施","tags":"测试","lead":"刘毅杰","date":"2026","desc":"经编1#厂2F叉车AGV加装人型检测摄像头"},{"id":"p19","title":"飞织数采","kanban":"项目实施","tags":"运行","lead":"赵鹏/张钐钐","date":"2026","desc":"多品牌设备协议对接、看板开发，已上线运行"},{"id":"p20","title":"飞织自动小包装线","kanban":"项目实施","tags":"运行","lead":"赵鹏/叶雨磊","date":"2026","desc":"自动线占比66.2%，7/10峰值64,756双，MES对接优化中"},{"id":"p21","title":"梭织数采","kanban":"项目实施","tags":"实施","lead":"赵鹏/张钐钐/李泽波","date":"2026","desc":"设备联网方案、采集点位规划、全厂数据采集"},{"id":"p22","title":"梭织CAD软件","kanban":"项目实施","tags":"开发","lead":"张钐钐","date":"2026","desc":"提升工艺设计效率、高度定制自有功能"},{"id":"p23","title":"水冷单丝数采","kanban":"项目实施","tags":"部署","lead":"赵鹏/张钐钐/李泽波","date":"2026","desc":"15条产线、多品牌适配、本地部署、源码交付"},{"id":"p24","title":"色牢度检测设备研发","kanban":"项目实施","tags":"交付","lead":"李俊仪/刘毅杰/翁宏","date":"2026","desc":"设备研发及制造、电气部分、程序逻辑编写、已部署"},{"id":"p25","title":"摩擦色牢度检测仪","kanban":"项目实施","tags":"实施","lead":"赵鹏","date":"2026","desc":"制定项目计划、按计划完成交付"},{"id":"p26","title":"AI编织非标设备","kanban":"项目实施","tags":"研发","lead":"赵鹏/李俊仪","date":"2026","desc":"对接非标设备需求及实现评估"},{"id":"p27","title":"绕纱非标设备","kanban":"项目实施","tags":"研发","lead":"赵鹏/李俊仪","date":"2026","desc":"对接非标设备需求及实现评估"},{"id":"p28","title":"绕丝喷漆","kanban":"项目实施","tags":"对接","lead":"刘毅杰","date":"2026","desc":"电气部分需求对接"},{"id":"p29","title":"源选鞋面采样","kanban":"项目实施","tags":"研发","lead":"李俊仪/翁宏","date":"2026","desc":"协助出图和BOM"},{"id":"p30","title":"立体缠绕非标设备","kanban":"项目实施","tags":"评估","lead":"李俊仪","date":"2026","desc":"对接需求、评估可行性"},{"id":"p31","title":"点对点AGV叉车","kanban":"运维","tags":"运维","lead":"刘毅杰","date":"2026","desc":"设备运维事项及新地图绘制"},{"id":"p32","title":"富联叉车AGV运输","kanban":"运维","tags":"运维","lead":"李泽波","date":"2026","desc":"日常运维"},{"id":"p33","title":"经编CAD软件","kanban":"运维","tags":"运维","lead":"张钐钐","date":"2026","desc":"持续开发+运维"},{"id":"p34","title":"AGV调度系统（经编+富联）","kanban":"运维","tags":"运维","lead":"张钐钐","date":"2026","desc":"工厂自动化、持续开发"},{"id":"p35","title":"经编版型核对（视觉）","kanban":"项目实施","tags":"规划","lead":"林乐平","date":"2026","desc":"工业视觉对样品版型大小、色差检测"}]},{"id":"dept","name":"部门助理","char":"朱菜","icon":"📊","kanbans":["周报月报","经营汇报","制度文件","SOP文档","部门数据"],"items":[{"id":"d1","title":"飞织自动小包装线项目周报","kanban":"周报月报","tags":"周报","lead":"赵鹏","date":"2026-07-13","desc":"周期7/6-7/12，自动线383,994双/23,225包，占比66.2%"},{"id":"d2","title":"飞织周报模板体系","kanban":"周报月报","tags":"模板","lead":"赵鹏","date":"2026-07-10","desc":"generate.js + content-template.json + README.md 三文件"},{"id":"d3","title":"滴滴及私车公用月度费用统计","kanban":"周报月报","tags":"月度","lead":"赵鹏","date":"2026-07-06","desc":"数字化中心滴滴及私车公用费用统计.xlsx，每月5号cron自动更新"},{"id":"d4","title":"半年度经营分析报告","kanban":"经营汇报","tags":"半年度","lead":"赵鹏","date":"2026-07-26","desc":"模板+供应链案例已过，大纲梳理中"},{"id":"d5","title":"联合公告修改建议书","kanban":"制度文件","tags":"制度","lead":"赵鹏","date":"2026-07-20","desc":"万物V2 vs AI管理中心V1.0，6条必改项，同事主导推进中"},{"id":"d6","title":"天富合同必改条款修改建议书","kanban":"制度文件","tags":"合同","lead":"赵鹏","date":"2026-07-10","desc":"4条必改条款+质保期+试运行时间，7/11审阅天富修订版"},{"id":"d7","title":"飞织自动包装生产作业指导书","kanban":"SOP文档","tags":"SOP","lead":"赵鹏","date":"2026-06-11","desc":"面向一线工人，文字简单直白"},{"id":"d8","title":"飞织保养标准作业指导书","kanban":"SOP文档","tags":"SOP","lead":"赵鹏","date":"2026-06-13","desc":"设备保养规范"},{"id":"d9","title":"水冷单丝称重分类线需求单","kanban":"SOP文档","tags":"需求","lead":"赵鹏","date":"2026-07-16","desc":"2000梭/h、三配方四出口、对接包装线"},{"id":"d10","title":"AI验布机选型与测试验证PPT","kanban":"经营汇报","tags":"汇报","lead":"赵鹏","date":"2026-07-10","desc":"v2定稿"},{"id":"d11","title":"部门工作分析汇总表","kanban":"部门数据","tags":"数据","lead":"赵鹏","date":"2026-07-20","desc":"9人全口径，按规划设计/项目实施/运维三分类"},{"id":"d12","title":"岗位工作分析调查问卷","kanban":"部门数据","tags":"问卷","lead":"赵鹏","date":"2026-06-16","desc":"8人问卷数据核查+汇总，赵鹏129%负荷、张钐钐156%"},{"id":"d13","title":"数字化项目责任归属分析","kanban":"部门数据","tags":"分析","lead":"赵鹏","date":"2026-06-18","desc":"项目责任归属与实施路径"}]},{"id":"supplier","name":"供应商管理","char":"Saber","icon":"⚔️","kanbans":["询价中","报价已收","合同签订","已交付","????"],"items":[{"id":"s1","title":"广东万尔芯 — 自动码垛线","kanban":"合同签订","tags":"码垛","lead":"赵鹏","date":"2025-02-14","desc":"成东/信泰各26万，Q8L-T捆扎机×2+WEX码垛机器人，质保12个月"},{"id":"s2","title":"天富 — 染料助剂自动配送系统","kanban":"报价已收","tags":"配送","lead":"赵鹏","date":"2026-07-07","desc":"总价4,447,742，议后368万(17.3%)，合同审阅中"},{"id":"s3","title":"视频测量显微镜 — 玺发SMYT-100S","kanban":"询价中","tags":"检测","lead":"赵鹏","date":"2026-07-16","desc":"13.3寸屏、1/1.8\"CMOS、4K@30fps、800万像素，缺价格"},{"id":"s4","title":"视频测量显微镜 — TV-04","kanban":"询价中","tags":"检测","lead":"赵鹏","date":"2026-07-16","desc":"11.6寸可拆屏、56颗LED环形灯+底光源底座，缺价格"},{"id":"s5","title":"崧智智能","kanban":"询价中","tags":"控制","lead":"赵鹏","date":"2026-07-16","desc":"www.origi-tech.com，苏州0512-62621809，sales@origi-tech.com"},{"id":"s6","title":"诺力 — 提升机","kanban":"合同签订","tags":"提升机","lead":"王志龙","date":"2026","desc":"第8.6条第(1)点争议谈判，方案：不合格分两档"},{"id":"s7","title":"送样机器人 — 汉特云 vs 普渡","kanban":"报价已收","tags":"机器人","lead":"赵鹏","date":"2026-06-25","desc":"供应商报价对比分析已完成"},{"id":"s8","title":"SZ08A-00数据采集箱物料","kanban":"报价已收","tags":"数采","lead":"赵鹏","date":"2026-07-14","desc":"48项分9类，京东+淘宝+供应商三渠道，¥3,774-6,668"},{"id":"s9","title":"信亿机械 — AGV生产","kanban":"合同签订","tags":"AGV","lead":"李俊仪","date":"2026","desc":"指导信亿机械生产AGV"}],"supplierDB":[{"name":"?????????","contact":"???","phone":"0769-3886161","addr":"????????11?4?","direction":"?????/???/???","projects":"??/???????","note":"26?/? Q8L-T??? ??12??"},{"name":"??","contact":"???","phone":"???","addr":"??","direction":"????????????","projects":"??444.7? ??368?","note":"????? 4?????"},{"name":"??????","contact":"???","phone":"???","addr":"???","direction":"????/????","projects":"???????????","note":"????"},{"name":"??","contact":"???","phone":"???","addr":"???","direction":"???/AGV","projects":"??4#???","note":"????????"},{"name":"????","contact":"??(??)","phone":"0512-62621809","addr":"???????????88?D1-101","direction":"????/????","projects":"???","note":"sales@origi-tech.com"},{"name":"????","contact":"???","phone":"???","addr":"???","direction":"???????","projects":"SMYT-100S","note":"13.3?? 1/1.8\"CMOS 4K@30fps"},{"name":"TV-04???","contact":"???","phone":"???","addr":"???","direction":"???????","projects":"TV-04","note":"11.6???? 56?LED???"},{"name":"???","contact":"???","phone":"???","addr":"???","direction":"?????","projects":"??????","note":"?????"},{"name":"??","contact":"???","phone":"???","addr":"???","direction":"?????","projects":"??????","note":"??????"},{"name":"????","contact":"???","phone":"???","addr":"???","direction":"AGV????","projects":"??4#????AGV","note":"????AGV"},{"name":"????","contact":"???","phone":"???","addr":"???","direction":"AI??/????","projects":"AI???????","note":"?????"},{"name":"????","contact":"???","phone":"???","addr":"??","direction":"AI???","projects":"????","note":"TOP1 ????95%"},{"name":"????","contact":"???","phone":"???","addr":"???","direction":"?????/??AGV","projects":"??????","note":"??130?"},{"name":"????","contact":"???","phone":"???","addr":"???","direction":"???/AI??","projects":"???????","note":"???????"}]},{"id":"auto","name":"自动收集管家","char":"山田","icon":"🤖","kanbans":["行业周报","政策动态","技术前沿","竞品动向"],"items":[{"id":"a1","title":"信泰石狮2.3亿智能工厂落地","kanban":"行业周报","tags":"标杆","date":"2026-07-22","desc":"MES+AGV+立库全链路打通，入选数字三品典型案例、省级先进级智能工厂"},{"id":"a2","title":"信泰×华为AI创研云底座上线","kanban":"行业周报","tags":"AI","date":"2026-07-22","desc":"CloudPond昇腾云，设计打样效率↑300%，研发周期从数月→几天"},{"id":"a3","title":"联兴发5G+AI验布：0.1mm瑕疵检测","kanban":"行业周报","tags":"AI验布","date":"2026-07-22","desc":"30+种瑕疵，效率为人工3倍(200匹/天)，入选5G工厂名录"},{"id":"a4","title":"福建省AI+制造三年行动计划(2026-2028)","kanban":"政策动态","tags":"政策","date":"2026-07-01","desc":"八部门联合印发，福州/泉州/莆田为重点，目标20个垂直模型+100个场景"},{"id":"a5","title":"泉州入选首批国家新型工业化示范区","kanban":"政策动态","tags":"政策","date":"2026-07-22","desc":"信泰石狮列为制鞋链重点项目，MES+AGV经验向产业链输出"},{"id":"a6","title":"厦门2026智能工厂梯度培育申报","kanban":"政策动态","tags":"申报","date":"2026-07-23","desc":"CMMM自评估为申报前提"},{"id":"a7","title":"迈沐AI验布机TOP1 + 10年整机质保","kanban":"技术前沿","tags":"AI验布","date":"2026-07","desc":"自研沐光大模型+多谱段成像，检出率≥95%，17项发明专利"},{"id":"a8","title":"迁移学习破局AI验布数据饥渴","kanban":"技术前沿","tags":"AI验布","date":"2026-07","desc":"数据需求仅传统1%-5%，70天交付，帝人/中国巨石/晓星已采用"},{"id":"a9","title":"海柔创新鞋服AGV：单仓130台","kanban":"竞品动向","tags":"AGV","date":"2026-07","desc":"鞋服累计30+项目，欣贺34台箱式机器人，拣选准确率99.99%+"},{"id":"a10","title":"恒力化纤AI视觉质量管控智能体","kanban":"技术前沿","tags":"AI质检","date":"2026-07-17","desc":"工信部AI典型案例，丝锭外观缺陷秒级检测，数采+AI+自动化闭环"},{"id":"a11","title":"工信部AI典型案例：纺织6项入选","kanban":"行业周报","tags":"AI","date":"2026-07-14","desc":"恒力/汉塔/中译语通/波司登/南京玻纤院/酷特智能"},{"id":"a12","title":"WAIC 2026：工业智能体站C位","kanban":"技术前沿","tags":"AI","date":"2026-07-20","desc":"中国移动天工发布，智元A3 Ultra量产1.5万台，优必选日产50台"}]},{"id":"library","name":"图书库","char":"伊莉雅","icon":"📚","kanbans":["工作模板","参考资料","方法论","快速查询"],"items":[{"id":"l1","title":"需求规格说明书模板","kanban":"工作模板","tags":"模板","desc":"业务需求规格说明书+产品PRD+需求基线确认书"},{"id":"l2","title":"项目周报模板（飞织线）","kanban":"工作模板","tags":"模板","desc":"generate.js + content-template.json，可复用"},{"id":"l3","title":"合同风险审阅Checklist","kanban":"工作模板","tags":"模板","desc":"基于天富/联通/诺力合同审阅经验提炼"},{"id":"l4","title":"供应商报价对比分析模板","kanban":"工作模板","tags":"模板","desc":"汉特云vs普渡/玺发vs TV-04两轮经验"},{"id":"l5","title":"SOP白话写作方法","kanban":"方法论","tags":"方法论","desc":"面向一线工人：做什么→看哪里→出问题怎么办"},{"id":"l6","title":"供应商调研方法论","kanban":"方法论","tags":"方法论","desc":"先确认需求类型再展开，京东标准件+供应商非标件"},{"id":"l7","title":"工业品采购渠道分类","kanban":"快速查询","tags":"采购","desc":"京东自营→标准件/电气件；淘宝→辅助物料；供应商→PLC/传感器/定制件"},{"id":"l8","title":"天富合同必改条款速查","kanban":"参考资料","tags":"合同","desc":"4条：钱货两空/日1%违约金/无限签字权+30天验收/管辖佛山"},{"id":"l9","title":"C盘/D盘清理经验","kanban":"快速查询","tags":"IT","desc":"WPS Cloud Files、TencentMeeting、微信缓存"},{"id":"l10","title":"论文通知拆解速查","kanban":"快速查询","tags":"论文","desc":"学位vs非学位：查重25%vs40%、字数8000vs6000、成绩70vs60"},{"id":"l11","title":"220V弱电问答","kanban":"快速查询","tags":"电气","desc":"220V是强电，弱电一般≤36V"},{"id":"l12","title":"天富中控 vs MES 区别","kanban":"参考资料","tags":"MES","desc":"中控=设备操作台，MES=工厂生产大脑"},{"id":"l13","title":"部门9人岗位职责表","kanban":"参考资料","tags":"部门","desc":"智能制造部门工作量分析.xlsx，按规划设计/实施/运维三分类"}]}]};
+(function(){
+var data=DATA;
+var state={personaIdx:0,kanban:"all",search:"",filterTags:new Set()};
 
- function render(){
-   const p=data.personas[state.personaIdx];
-   items=p.items; kanbans=p.kanbans;
-   let filtered=items;
-   if(state.kanban!=="all") filtered=filtered.filter(i=>i.kanban===state.kanban);
-   if(state.search) filtered=filtered.filter(i=>i.title.includes(state.search)||(i.desc||"").includes(state.search)||(i.tags||"").includes(state.search));
-   if(state.filterTags.size) filtered=filtered.filter(i=>state.filterTags.has(i.tags));
+function render(){
+ var p=data.personas[state.personaIdx];
+ var items=p.items;
+ var kanbans=p.kanbans;
+ var filtered=items.slice();
+ if(state.kanban!=="all") filtered=filtered.filter(function(i){return i.kanban===state.kanban;});
+ if(state.search) filtered=filtered.filter(function(i){return (i.title||"").indexOf(state.search)>=0||(i.desc||"").indexOf(state.search)>=0||(i.tags||"").indexOf(state.search)>=0;});
+ if(state.filterTags.size) filtered=filtered.filter(function(i){return state.filterTags.has(i.tags);});
 
-   // Persona bar
-   const bar=document.getElementById("personaBar");
-   bar.innerHTML=data.personas.map((p,i)=>`<button class="persona-btn${i===state.personaIdx?' active':''}" onclick="switchPersona(${i})">${p.icon} ${p.char}·${p.name}</button>`).join("");
-
-   // Sidebar
-   const kl=document.getElementById("kanbanList");
-   const allCount=items.length;
-   kl.innerHTML=`<button class="kanban-btn${state.kanban==='all'?' active':''}" onclick="switchKanban('all')"><span>全部条目</span><span class="count">${allCount}</span></button>`+
-     kanbans.map(k=>{
-       const cnt=items.filter(i=>i.kanban===k).length;
-       return `<button class="kanban-btn${state.kanban===k?' active':''}" onclick="switchKanban('${k}')"><span>${k}</span><span class="count">${cnt}</span></button>`;
-     }).join("");
-   document.getElementById("sidebarFooter").textContent=`本地静态生成 · ${kanbans.length+1}个看板已加载`;
-
-   // Content
-   const ct=document.getElementById("content");
-   const allTags=[...new Set(filtered.map(i=>i.tags).filter(Boolean))];
-   ct.innerHTML=`
-<div class="search-bar">
- <input class="search-input" placeholder="搜索条目..." value="${state.search}" oninput="setSearch(this.value)">
- <div class="filter-tags">${allTags.map(t=>`<span class="filter-tag${state.filterTags.has(t)?' active':''}" onclick="toggleTag('${t}')">${t}</span>`).join("")}</div>
-</div>
-<div class="summary">${filtered.length} 条</div>
-${filtered.length===0?'<div class="empty-state">没有匹配的条目</div>':
-`<div class="card-grid">${filtered.map(i=>`
-<div class="card">
- <div class="card-header">
-  <div class="card-title">${i.title}</div>
-  <div class="card-badges">
-   <span class="badge badge-tag">${i.tags||""}</span>
-   <span class="badge badge-status">${i.kanban||""}</span>
-  </div>
- </div>
- <div class="card-meta">${i.lead?`<span>👤 ${i.lead}</span>`:""}${i.date?`<span>📅 ${i.date}</span>`:""}</div>
- ${i.desc?`<div class="card-desc">${i.desc}</div>`:""}
-</div>`).join("")}</div>`}`;
+ // Persona bar
+ var bar=document.getElementById("personaBar");
+ bar.innerHTML="";
+ for(var pi=0;pi<data.personas.length;pi++){
+   var pp=data.personas[pi];
+   var cls=pi===state.personaIdx?"persona-btn active":"persona-btn";
+   bar.innerHTML+='<button class="'+cls+'" onclick="switchPersona('+pi+')">'+pp.icon+' '+pp.char+'·'+pp.name+'</button>';
  }
 
- window.switchPersona=function(i){state.personaIdx=i;state.kanban="all";state.search="";state.filterTags=new Set();render();};
- window.switchKanban=function(k){state.kanban=k;render();};
- window.setSearch=function(v){state.search=v;render();};
- window.toggleTag=function(t){if(state.filterTags.has(t))state.filterTags.delete(t);else state.filterTags.add(t);render();};
+ // Sidebar kanbans
+ var kl=document.getElementById("kanbanList");
+ var allCount=items.length;
+ var h='<button class="kanban-btn'+(state.kanban==="all"?' active':'')+'" onclick="switchKanban('all')"><span>????</span><span class="count">'+allCount+'</span></button>';
+ for(var ki=0;ki<kanbans.length;ki++){
+   var kn=kanbans[ki];
+   var cnt=0;
+   for(var ci=0;ci<items.length;ci++){if(items[ci].kanban===kn)cnt++;}
+   h+='<button class="kanban-btn'+(state.kanban===kn?' active':'')+'" onclick="switchKanban(''+kn+'')"><span>'+kn+'</span><span class="count">'+cnt+'</span></button>';
+ }
+ kl.innerHTML=h;
+ document.getElementById("sidebarFooter").textContent="?????? · "+(kanbans.length+1)+"??????";
 
- // Clock
- function tick(){document.getElementById("clock").textContent=new Date().toLocaleString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",weekday:"short"});}
- tick();setInterval(tick,30000);
- render();
-});
+ // Tags
+ var allTags=[],seen={};
+ for(var ti=0;ti<filtered.length;ti++){var tg=filtered[ti].tags;if(tg&&!seen[tg]){seen[tg]=true;allTags.push(tg);}}
+ var tagHtml="";
+ for(var t2=0;t2<allTags.length;t2++){var t=allTags[t2];tagHtml+='<span class="filter-tag'+(state.filterTags.has(t)?' active':'')+'" onclick="toggleTag(''+t+'')">'+t+'</span>';}
+
+ // Cards
+ var cards="";
+ for(var fi=0;fi<filtered.length;fi++){
+   var it=filtered[fi];
+   cards+='<div class="card"><div class="card-header"><div class="card-title">'+it.title+'</div><div class="card-badges"><span class="badge badge-tag">'+(it.tags||"")+'</span><span class="badge badge-status">'+(it.kanban||"")+'</span></div></div><div class="card-meta">'+(it.lead?'<span>👤 '+it.lead+'</span>':"")+(it.date?'<span>📅 '+it.date+'</span>':"")+'</div>'+(it.desc?'<div class="card-desc">'+it.desc+'</div>':"")+'</div>';
+ }
+
+ var ct=document.getElementById("content");
+ var html='<div class="search-bar"><input class="search-input" placeholder="????..." value="'+state.search.replace(/"/g,"&quot;")+'" oninput="setSearch(this.value)"><div class="filter-tags">'+tagHtml+'</div></div><div class="summary">'+filtered.length+' ?</div>';
+ html+=(filtered.length===0?'<div class="empty-state">???????</div>':'<div class="card-grid">'+cards+'</div>');
+
+ // Supplier DB table
+ if(p.id==="supplier" && p.supplierDB && state.kanban==="all"){
+   html+='<div class="supplier-section"><h3>📋 ???? <button class="export-btn" onclick="exportCSV()">⬇ ??CSV</button></h3><table class="supplier-table"><thead><tr><th>????</th><th>???</th><th>??</th><th>??</th><th>????</th><th>????</th><th>??</th></tr></thead><tbody>';
+   for(var si=0;si<p.supplierDB.length;si++){
+     var s=p.supplierDB[si];
+     html+='<tr><td>'+s.name+'</td><td>'+s.contact+'</td><td>'+s.phone+'</td><td>'+s.addr+'</td><td>'+s.direction+'</td><td>'+s.projects+'</td><td>'+s.note+'</td></tr>';
+   }
+   html+='</tbody></table></div>';
+ }
+
+ ct.innerHTML=html;
+}
+
+window.exportCSV=function(){
+ var p=data.personas[state.personaIdx];
+ if(!p.supplierDB) return;
+ var csv='﻿????,???,??,??,????,????,??
+';
+ for(var i=0;i<p.supplierDB.length;i++){
+   var s=p.supplierDB[i];
+   csv+=[s.name,s.contact,s.phone,s.addr,s.direction,s.projects,s.note].map(function(v){return '"'+(v||"").replace(/"/g,'""')+'"';}).join(",")+'
+';
+ }
+ var blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+ var url=URL.createObjectURL(blob);
+ var a=document.createElement("a");
+ a.href=url;a.download="????_"+new Date().toISOString().slice(0,10)+".csv";
+ a.click();URL.revokeObjectURL(url);
+};
+
+window.switchPersona=function(i){state.personaIdx=i;state.kanban="all";state.search="";state.filterTags=new Set();render();};
+window.switchKanban=function(k){state.kanban=k;render();};
+window.setSearch=function(v){state.search=v;render();};
+window.toggleTag=function(t){if(state.filterTags.has(t))state.filterTags.delete(t);else state.filterTags.add(t);render();};
+
+function tick(){document.getElementById("clock").textContent=new Date().toLocaleString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",weekday:"short"});}
+tick();setInterval(tick,30000);
+render();
+})();
 </script>
 </body>
 </html>
