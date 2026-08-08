@@ -43,6 +43,18 @@ main{display:flex;flex:1;overflow:hidden}
 .badge-status{background:#e6f7ff;color:#1890ff}
 .card-meta{font-size:12px;color:#999;margin-top:4px;display:flex;gap:12px}
 .card-desc{font-size:12px;color:#666;margin-top:8px;line-height:1.5}
+.dashboard{margin-bottom:16px;display:flex;gap:10px;flex-wrap:wrap}
+.dash-card{flex:1;min-width:200px;padding:14px 16px;border-radius:10px;border:1px solid #f0f0f0;background:#fff}
+.dash-card .dash-label{font-size:11px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.dash-card.blocked{border-left:3px solid #ff4d4f}
+.dash-card.blocked .dash-label{color:#ff4d4f}
+.dash-card.focus{border-left:3px solid #f59e0b}
+.dash-card.focus .dash-label{color:#d97706}
+.dash-card.todo{border-left:3px solid #4f46e5}
+.dash-card.todo .dash-label{color:#4f46e5}
+.dash-item{font-size:12px;color:#555;padding:3px 0;cursor:pointer;border-radius:4px;padding-left:4px;padding-right:4px}
+.dash-item:hover{background:#f5f3ff}
+.dash-empty{font-size:12px;color:#bbb;padding:6px 0}
 .card-stages{display:flex;gap:4px;margin-top:10px}
 .stage-dot{width:8px;height:8px;border-radius:50%;background:#d9d9d9}
 .stage-dot.done{background:#52c41a}
@@ -162,7 +174,30 @@ function render(){
  }
 
  var ct=document.getElementById("content");
- var ch='<div class="search-bar"><input class="search-input" placeholder="搜索条目..." value="'+esc(state.search)+'" oninput="setSearch(this.value)"><div class="filter-tags">'+tagHtml+'</div></div><div class="summary">'+filtered.length+' 条</div>';
+ var dash="";
+ if(p.id==="project" && state.kanban==="all"){
+   var blocked=[],focus=[],todo=[];
+   for(var di=0;di<items.length;di++){
+     var it=items[di];
+     if(it.dash==="blocked") blocked.push(it);
+     else if(it.dash==="focus") focus.push(it);
+     if(it.desc&&it.desc.indexOf("下一步")>=0) todo.push({id:it.id,title:it.title,desc:it.desc.split("下一步")[1]||""});
+   }
+   dash='<div class="dashboard">';
+   dash+='<div class="dash-card blocked"><div class="dash-label">⚠️ 卡点预警</div>';
+   if(blocked.length) for(var bi=0;bi<blocked.length;bi++) dash+='<div class="dash-item" onclick="openDetail(\''+esc(blocked[bi].id)+'\')">'+esc(blocked[bi].title)+'</div>';
+   else dash+='<div class="dash-empty">暂无卡点</div>';
+   dash+='</div>';
+   dash+='<div class="dash-card focus"><div class="dash-label">📌 本周关注</div>';
+   if(focus.length) for(var fi2=0;fi2<focus.length;fi2++) dash+='<div class="dash-item" onclick="openDetail(\''+esc(focus[fi2].id)+'\')">'+esc(focus[fi2].title)+'</div>';
+   else dash+='<div class="dash-empty">暂无</div>';
+   dash+='</div>';
+   dash+='<div class="dash-card todo"><div class="dash-label">✅ 我的待办</div>';
+   if(todo.length) for(var ti2=0;ti2<todo.length;ti2++) dash+='<div class="dash-item" onclick="openDetail(\''+esc(todo[ti2].id)+'\')">'+esc(todo[ti2].title)+': '+esc(todo[ti2].desc.substring(0,30))+'</div>';
+   else dash+='<div class="dash-empty">暂无待办</div>';
+   dash+='</div></div>';
+ }
+ var ch=dash+'<div class="search-bar"><input class="search-input" placeholder="搜索条目..." value="'+esc(state.search)+'" oninput="setSearch(this.value)"><div class="filter-tags">'+tagHtml+'</div></div><div class="summary">'+filtered.length+' 条</div>';
  ch+=(filtered.length===0?'<div class="empty-state">没有匹配的条目</div>':'<div class="card-grid">'+cards+'</div>');
 
  if(p.id==="supplier" && p.supplierDB && state.kanban==="all"){
