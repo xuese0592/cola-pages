@@ -208,6 +208,9 @@ function render(){
    }
    ch+='</tbody></table></div>';
  }
+ if(p.id==="dept" && state.kanban==="all"){
+   ch+='<div style="margin:12px 0"><button class="export-btn" onclick="exportMonthlyReport()" style="font-size:14px">📄 导出月报</button></div>';
+ }
  ct.innerHTML=ch;
  ct.style.background=p.theme||"";
 }
@@ -269,6 +272,42 @@ window.exportCSV=function(){
  var url=URL.createObjectURL(blob);
  var a=document.createElement("a");
  a.href=url;a.download="供应商库_"+new Date().toISOString().slice(0,10)+".csv";
+ a.click();URL.revokeObjectURL(url);
+};
+
+window.exportMonthlyReport=function(){
+ var p=data.personas[state.personaIdx];
+ var items=p.items||[];
+ var now=new Date();
+ var m=now.getMonth()+1,y=now.getFullYear();
+ var md="# 智能制造部"+y+"年"+m+"月工作月报\n\n";
+ md+="> 生成日期："+y+"-"+("0"+m).slice(-2)+"-"+("0"+now.getDate()).slice(-2)+"\n\n";
+ md+="## 一、本月项目进展\n\n";
+ var reportKb=["部门在建","部门规划","部门运维"];
+ for(var ki=0;ki<reportKb.length;ki++){
+   var kb=reportKb[ki];
+   var kbItems=items.filter(function(it){return it.kanban===kb;});
+   if(!kbItems.length) continue;
+   md+="### "+(ki+1)+"."+(ki+1)+" "+kb+"\n\n";
+   md+="| 项目 | 负责人 | 本月进展 |\n| :--- | :---: | :--- |\n";
+   for(var ii=0;ii<kbItems.length;ii++){
+     var it=kbItems[ii];
+     var desc=it.desc||"";
+     var nextIdx=desc.indexOf("下一步");
+     var progress=nextIdx>=0?desc.substring(0,nextIdx):desc;
+     progress=progress.replace(/\|/g,"/").trim()||"—";
+     md+="| "+it.title.replace(/\|/g,"/")+" | "+(it.lead||"—")+" | "+progress.substring(0,80)+" |\n";
+   }
+   md+="\n";
+ }
+ md+="## 二、工作亮点\n\n";
+ md+="_（待补充）_\n\n";
+ md+="## 三、下月计划\n\n";
+ md+="_（待补充）_\n\n";
+ var blob=new Blob([md],{type:"text/markdown;charset=utf-8"});
+ var url=URL.createObjectURL(blob);
+ var a=document.createElement("a");
+ a.href=url;a.download="智能制造部_"+y+"年"+m+"月工作月报.md";
  a.click();URL.revokeObjectURL(url);
 };
 
