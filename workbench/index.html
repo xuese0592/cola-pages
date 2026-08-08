@@ -178,25 +178,45 @@ function render(){
 }
 
 window.openDetail=function(id){
- var item=null,items=[];
+ var item=null,personaIdx=-1;
+ var allItems=[];
  for(var i=0;i<data.personas.length;i++){
-   for(var j=0;j<(data.personas[i].items||[]).length;j++){items.push(data.personas[i].items[j]);}
+   var its=data.personas[i].items||[];
+   for(var j=0;j<its.length;j++){
+     var it=its[j];allItems.push(it);
+     if(it.id===id){item=it;personaIdx=i;}
+   }
  }
- for(var k=0;k<items.length;k++){if(items[k].id===id){item=items[k];break;}}
  if(!item) return;
+ var isSupplier=id[0]==='s';
  var stages=item.stages||[];
  var stageLabels=["立项","采购","实施","试运行","验收"];
  var statusIcon={completed:"✔",in_progress:"▶",blocked:"✖",pending:"—"};
  var stepper="";
- for(var si=0;si<5;si++){
-   var s=stages[si]||{name:stageLabels[si],status:"pending",date:"—",note:""};
-   var cls=s.status==="completed"?"done":s.status==="in_progress"?"active":s.status==="blocked"?"blocked":"";
-   stepper+='<div class="stage-step '+cls+'"><div class="stage-line"></div><div class="node">'+statusIcon[s.status]+'</div><div class="label">'+esc(s.name)+'</div><div class="date">'+esc(s.date)+'</div><div class="note">'+esc(s.note)+'</div></div>';
+ if(!isSupplier){
+   for(var si=0;si<5;si++){
+     var s=stages[si]||{name:stageLabels[si],status:"pending",date:"—",note:""};
+     var cls=s.status==="completed"?"done":s.status==="in_progress"?"active":s.status==="blocked"?"blocked":"";
+     stepper+='<div class="stage-step '+cls+'"><div class="stage-line"></div><div class="node">'+statusIcon[s.status]+'</div><div class="label">'+esc(s.name)+'</div><div class="date">'+esc(s.date)+'</div><div class="note">'+esc(s.note)+'</div></div>';
+   }
+ }
+ var ext="";
+ if(isSupplier){
+   var db=(data.personas[personaIdx]||{}).supplierDB||[];
+   var title=item.title||"";
+   for(var si=0;si<db.length;si++){
+     var s=db[si];
+     if(title.indexOf(s.name)>=0||(s.name&&s.name.indexOf(title)>=0)||(s.direction&&title.indexOf(s.direction)>=0)){
+       ext='<div style="margin-top:16px;padding:12px;background:#fafbff;border-radius:8px"><table style="font-size:12px;color:#555;width:100%;border-collapse:collapse"><tr><td style="padding:4px 8px;color:#999">联系人</td><td style="padding:4px 8px">'+esc(s.contact)+'</td><td style="padding:4px 8px;color:#999">电话</td><td style="padding:4px 8px">'+esc(s.phone)+'</td></tr><tr><td style="padding:4px 8px;color:#999">地址</td><td colspan="3" style="padding:4px 8px">'+esc(s.addr)+'</td></tr><tr><td style="padding:4px 8px;color:#999">方向</td><td colspan="3" style="padding:4px 8px">'+esc(s.direction)+'</td></tr><tr><td style="padding:4px 8px;color:#999">备注</td><td colspan="3" style="padding:4px 8px">'+esc(s.note)+'</td></tr></table></div>';
+       break;
+     }
+   }
  }
  var modal=document.getElementById("modal");
- modal.innerHTML='<div class="modal-header"><div><div class="modal-title">'+esc(item.title)+'</div><div class="modal-meta"><span>📋 '+esc(item.kanban||"")+'</span><span>🏷 '+esc(item.tags||"")+'</span><span>👤 '+esc(item.lead||"赵鹏")+'</span><span>📅 '+esc(item.date||"")+'</span></div></div><button class="modal-close" onclick="closeDetail()">✕</button></div><div class="modal-body"><div class="modal-desc">'+(item.desc||"暂无描述")+'</div><div class="stage-stepper">'+stepper+'</div></div>';
+ modal.innerHTML='<div class="modal-header"><div><div class="modal-title">'+esc(item.title)+'</div><div class="modal-meta"><span>📋 '+esc(item.kanban||"")+'</span><span>🏷 '+esc(item.tags||"")+'</span><span>👤 '+esc(item.lead||"赵鹏")+'</span><span>📅 '+esc(item.date||"")+'</span></div></div><button class="modal-close" onclick="closeDetail()">✕</button></div><div class="modal-body"><div class="modal-desc">'+(item.desc||"暂无描述")+'</div>'+(isSupplier?ext:'<div class="stage-stepper">'+stepper+'</div>')+'</div>';
  document.getElementById("overlay").classList.remove("hidden");
 };
+
 window.closeDetail=function(){
  document.getElementById("overlay").classList.add("hidden");
 };
